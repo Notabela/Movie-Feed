@@ -167,7 +167,7 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            print("response: \(responseDictionary)")
+                            //print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             
                             self.collectionView.reloadData()
@@ -228,7 +228,7 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            print("response: \(responseDictionary)")
+                            //print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.filteredMovies = self.movies
                             self.collectionView.reloadData()
@@ -241,7 +241,7 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
     //check for internet connection
     private func checkInternetConnection(){
         
-        if Reachability.isConnectedToNetwork(){
+        if Reachability.isConnectedToNetwork() && !noInternetView.hidden {
             
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.noInternetView.center.y -= self.noInternetView.frame.height
@@ -250,7 +250,8 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
                         self.noInternetView.hidden = true
                 })
             
-        } else {
+        } else if !Reachability.isConnectedToNetwork() && noInternetView.hidden {
+            
             
             noInternetView.hidden = false
             let defaultCenter = self.noInternetView.center.y

@@ -41,9 +41,8 @@ class DetailViewController: UIViewController {
         setupPosterView()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        navigationController?.navigationBarHidden = false
+    override func viewWillDisappear(animated: Bool) {
+        navigationController?.hidesBarsOnTap = false
     }
     
     func setupInfoView()
@@ -52,7 +51,6 @@ class DetailViewController: UIViewController {
         infoView.frame.origin.y = CGFloat(2.3 * view.bounds.size.height / 3)
         lowestInfoViewLoc = infoView.center.y
         highestInfoViewLoc = (navigationController?.navigationBar.frame.height)! + (navigationController?.navigationBar.center.y)! + 120
-        print(highestInfoViewLoc)
         infoView.layer.cornerRadius = 5
         
     }

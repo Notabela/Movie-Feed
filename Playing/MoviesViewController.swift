@@ -141,8 +141,11 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
     //Get New Data
     func refreshControlAction(refreshControl: UIRefreshControl)
     {
-        //Check for Internet Connection
-        checkInternetConnection()
+        //check connection state
+        guard checkInternetConnection() else {
+            refreshControl.endRefreshing()
+            return
+        }
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
@@ -201,7 +204,10 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
     
     private func getData()
     {
-        checkInternetConnection()
+        //check state of connection
+        guard checkInternetConnection() else {
+            return
+        }
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
@@ -239,32 +245,41 @@ class MoviesViewController: UIViewController,UICollectionViewDataSource, UIColle
     }
     
     //check for internet connection
-    private func checkInternetConnection(){
+    private func checkInternetConnection() -> Bool{
         
-        if Reachability.isConnectedToNetwork() && !noInternetView.hidden {
+        if Reachability.isConnectedToNetwork(){
             
+            if !noInternetView.hidden {
+                self.noInternetView.hidden = true
+            }
+            
+            return true
+            
+        } else {
+            
+           if noInternetView.hidden {
+                movies?.removeAll(keepCapacity: true)
+                filteredMovies?.removeAll(keepCapacity: true)
+                collectionView.reloadData()
+            
+                noInternetView.hidden = false
+                noInternetView.alpha = 0
+                noInternetView.transform = CGAffineTransformMakeScale(0.2, 0.2)
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
-                    self.noInternetView.center.y -= self.noInternetView.frame.height
-                    
-                    }, completion: { (finished: Bool) -> Void in
-                        self.noInternetView.hidden = true
+                    self.noInternetView.alpha = 1
+                    self.noInternetView.transform = CGAffineTransformIdentity
                 })
-            
-        } else if !Reachability.isConnectedToNetwork() && noInternetView.hidden {
-            
-            
-            noInternetView.hidden = false
-            let defaultCenter = self.noInternetView.center.y
-            self.noInternetView.center.y -= self.noInternetView.frame.height
-            
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.noInternetView.center.y = defaultCenter
-            })
+            }
         }
         
+        return false
     }
 
-    @IBAction func onTapNetworkError(sender: UITapGestureRecognizer) {
+    //Tap of NetworkConnection
+    @IBAction func onTapNetworkError(sender: AnyObject) {
+        //quickly show hide progress bar to show progress to user
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
         getData()
     }
 }

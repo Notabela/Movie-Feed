@@ -29,11 +29,11 @@ Please list two areas of the assignment you'd like to **discuss further with you
 1. Displaying more information about the movies, i.e movie dates and times, theatre locations etc.
 2. Using dynamically sized collectionView cells instead of the static ones
 
-## Video Walkthrough 
+## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/Io23vUK.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/Io23vUK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -41,7 +41,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
-Customizing the Navigation Bar and tab Bar to make them dark but translucent than normal was a challenge. However, after a search on stackoverflow and playing around with the RGB values, I finally was able to implement it. 
+Customizing the Navigation Bar and tab Bar to make them dark but translucent than normal was a challenge. However, after a search on stackoverflow and playing around with the RGB values, I finally was able to implement it.
 
 ## License
 

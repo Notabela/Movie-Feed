@@ -15,31 +15,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.tintColor = UIColor.yellowColor()
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        //create a nowPlayingViewController by copying MoviesNavigationController from storyboard
         let nowPlayingNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
         let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MoviesViewController
         nowPlayingViewController.endpoint = "now_playing"
         nowPlayingNavigationController.tabBarItem.title = "Now Playing"
         nowPlayingNavigationController.tabBarItem.image = UIImage(named: "now_playing.png")
         
+        //create a topRatedViewController by capturing MoviesNavigationController from storyboard
         let topRatedNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
         let topRatedViewController = topRatedNavigationController.topViewController as! MoviesViewController
         topRatedViewController.endpoint = "top_rated"
         topRatedNavigationController.tabBarItem.title = "Top Rated"
         topRatedNavigationController.tabBarItem.image = UIImage(named: "top_rated.png")
         
+        //create a tab bar controller and embedded the two views in it
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
         
+        //set tabBar as rootView controller
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
+        //customize Navigation bar and tab bar to be very transluscent
+        UINavigationBar.appearance().barStyle = .Black
+        UINavigationBar.appearance().shadowImage = UIImage()
+        let colorImage = UIImage.imageFromColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.8), frame: CGRectMake(0, 0, 340, 64))
+        UINavigationBar.appearance().setBackgroundImage(colorImage, forBarMetrics: UIBarMetrics.Default)
+        tabBarController.tabBar.backgroundImage = colorImage
+        
         return true
     }
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -64,5 +76,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+//custom drawing
+extension UIImage
+{
+    class func imageFromColor(color: UIColor, frame: CGRect) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+        color.setFill()
+        UIRectFill(frame)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 

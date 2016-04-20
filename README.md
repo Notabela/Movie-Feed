@@ -1,6 +1,6 @@
-# Project 1 - Flicks
+# Project 1 - Movie Feed
 
-Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+Movie Feed is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **7** hours spent in total
 
@@ -16,25 +16,24 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 
 - [x] User sees an error message when there's a networking error.
-- [ ] Movies are displayed using a CollectionView instead of a TableView.
+- [x] Movies are displayed using a CollectionView instead of a TableView.
 - [x] User can search for a movie.
 - [x] All images fade in as they are loading.
 - [x] Customize the UI.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Navigation Bar hides on click in details View
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-1. 
-2. 
+1. Displaying more information about the movies, i.e movie dates and times, theatre locations etc.
+2. Using dynamically sized collectionView cells instead of the static ones
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/PxLXLlU.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/Io23vUK.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -42,9 +41,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
+Customizing the Navigation Bar and tab Bar to make them dark but translucent than normal was a challenge. However, after a search on stackoverflow and playing around with the RGB values, I finally was able to implement it. 
+
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2016 Daniel Obeng
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
